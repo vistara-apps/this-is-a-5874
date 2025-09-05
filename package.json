@@ -13,7 +13,14 @@
     "react-dom": "^18.2.0",
     "lucide-react": "^0.263.1",
     "@headlessui/react": "^1.7.17",
-    "framer-motion": "^10.16.4"
+    "framer-motion": "^10.16.4",
+    "@supabase/supabase-js": "^2.38.0",
+    "@stripe/stripe-js": "^2.1.11",
+    "openai": "^4.20.1",
+    "zustand": "^4.4.6",
+    "react-router-dom": "^6.18.0",
+    "react-hook-form": "^7.47.0",
+    "date-fns": "^2.30.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

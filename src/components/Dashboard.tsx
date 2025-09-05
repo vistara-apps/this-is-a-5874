@@ -107,7 +107,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onViewChange, onPremiumFea
         {encounters.length > 0 ? (
           <div className="space-y-3">
             {encounters.slice(0, 3).map((encounter) => (
-              <Card key={encounter.encounterId} className="p-4 bg-white/5 border-white/20">
+              <Card key={encounter.id} className="p-4 bg-white/5 border-white/20">
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="flex items-center gap-2 text-white/80 text-sm">

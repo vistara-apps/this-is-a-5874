@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Play, Square, Pause, MapPin, Clock, Share2, Save } from 'lucide-react'
+import { MapPin, Clock, Share2, Save, Download } from 'lucide-react'
 import { Card } from './ui/Card'
 import { PrimaryButton } from './ui/PrimaryButton'
+import { RecordButton } from './ui/RecordButton'
 import { useUserStore } from '../stores/useUserStore'
+import { generateEncounterSummary } from '../services/openai'
+import { uploadRecording } from '../services/supabase'
 
 interface RecordingInterfaceProps {
   onPremiumFeature: () => boolean

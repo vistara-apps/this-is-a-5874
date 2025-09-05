@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Header } from './components/Header'
 import { Dashboard } from './components/Dashboard'
 import { RightsGuide } from './components/RightsGuide'
@@ -11,7 +11,19 @@ type View = 'dashboard' | 'rights' | 'recording'
 function App() {
   const [currentView, setCurrentView] = useState<View>('dashboard')
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false)
-  const { user } = useUserStore()
+  const { user, loadUser, loadEncounters } = useUserStore()
+
+  // Load user data on app start
+  useEffect(() => {
+    loadUser()
+  }, [loadUser])
+
+  // Load encounters when user is available
+  useEffect(() => {
+    if (user) {
+      loadEncounters()
+    }
+  }, [user, loadEncounters])
 
   const handlePremiumFeature = () => {
     if (!user?.subscriptionStatus || user.subscriptionStatus === 'free') {
