@@ -54,6 +54,13 @@ jobs:
         vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
         vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
         
+    - name: Build Success Notification
+      if: secrets.VERCEL_TOKEN == ''
+      run: |
+        echo "✅ Build completed successfully!"
+        echo "📦 Application built and ready for deployment"
+        echo "💡 To enable Vercel deployment, add VERCEL_TOKEN, VERCEL_ORG_ID, and VERCEL_PROJECT_ID secrets"
+        
     - name: Comment PR with deployment URL
       if: github.event_name == 'pull_request' && secrets.VERCEL_TOKEN != ''
       uses: actions/github-script@v7
@@ -75,3 +82,21 @@ jobs:
               \n\nThis preview will be automatically updated when you push new commits to this PR.`
             });
           }
+          
+    - name: Comment PR with build success
+      if: github.event_name == 'pull_request' && secrets.VERCEL_TOKEN == ''
+      uses: actions/github-script@v7
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `✅ **Build Completed Successfully!**
+            \n\n📦 The application has been built and is ready for deployment.
+            \n\n💡 To enable automatic Vercel deployment, configure the following repository secrets:
+            \n- \`VERCEL_TOKEN\`
+            \n- \`VERCEL_ORG_ID\`  
+            \n- \`VERCEL_PROJECT_ID\`
+            \n\nYou can then manually deploy the \`dist/\` folder to any static hosting service.`
+          });
